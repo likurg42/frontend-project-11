@@ -9,5 +9,3 @@ module.exports = {
         hot: true,
     },
 };
-
-console.log('Development');

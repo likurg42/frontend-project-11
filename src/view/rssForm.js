@@ -1,6 +1,6 @@
-const renderRssForm = (container, state) => {
-    const inputEl = container.querySelector('[name="url"');
-    console.log(inputEl);
+const renderRssForm = (state, i18n, container) => {
+    const inputEl = container.querySelector('[name="url"]');
+
     switch (state.rssForm.state) {
         case 'invalid':
             inputEl.classList.add('is-invalid');
