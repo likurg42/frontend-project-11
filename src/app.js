@@ -1,7 +1,9 @@
 import i18next from 'i18next';
-import initView from './view/index.js';
-import validate from './validate.js';
 import resources from './locale/index.js';
+import initView from './view/index.js';
+import validate from './utils/validate.js';
+import get from './utils/get.js';
+import parseRss from './utils/parseRss.js';
 
 const app = (container = document) => {
     const i18n = i18next.createInstance();
@@ -14,6 +16,7 @@ const app = (container = document) => {
 
     const state = {
         feeds: [],
+        posts: [],
         rssForm: {
             state: 'input',
             errors: [],
@@ -21,9 +24,13 @@ const app = (container = document) => {
     };
 
     const rssFormEl = container.querySelector('.rss-form');
+    const postsEl = container.querySelector('.posts');
+    const feedsEl = container.querySelector('.feeds');
 
     const watchedState = initView(state, i18n, {
         rssFormEl,
+        postsEl,
+        feedsEl,
     });
 
     rssFormEl.addEventListener('submit', (e) => {
@@ -37,15 +44,42 @@ const app = (container = document) => {
 
         const errors = validate(currentData, state);
 
-        if (Object.keys(errors).length === 0) {
-            watchedState.feeds.push(currentData.url);
-            watchedState.rssForm.state = 'valid';
-            state.rssForm.state = 'input';
-        } else {
+        if (errors.length > 0) {
+            watchedState.rssForm.errors = errors;
             watchedState.rssForm.state = 'invalid';
+            watchedState.rssForm.state = 'input';
+            return;
         }
 
-        watchedState.rssForm.errors = errors;
+        get(currentData.url)
+            .then((res) => parseRss(res.data.contents))
+            .then((data) => {
+                const { feed } = data;
+                const { posts } = data;
+
+                const feedId = state.feeds.length + 1;
+
+                for (let i = 0; i < posts.length; i += 1) {
+                    posts[i].feedId = feedId;
+                    posts[i].id = state.posts.length + i + 1;
+                }
+
+                feed.id = feedId;
+                feed.url = currentData.url;
+
+                watchedState.feeds = [feed].concat(watchedState.feeds);
+                watchedState.posts = posts.concat(watchedState.posts);
+                watchedState.rssForm.errors = [];
+                watchedState.rssForm.state = 'valid';
+                watchedState.rssForm.state = 'input';
+            })
+            .catch((err) => {
+                // console.error(err);
+                errors.push(err.message);
+                watchedState.rssForm.errors = errors;
+                watchedState.rssForm.state = 'invalid';
+                watchedState.rssForm.state = 'input';
+            });
     });
 };
 

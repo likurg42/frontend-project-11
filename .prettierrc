@@ -1,6 +1,18 @@
 {
   "printWidth": 120,
-  "tabWidth": 4,
+  "tabWidth": 2,
+  "overrides": [
+    {
+      "files": [
+        "*.js",
+        "*.scss",
+        "*.css"
+      ],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ],
   "useTabs": false,
   "semi": true,
   "singleQuote": true,
