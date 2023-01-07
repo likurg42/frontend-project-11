@@ -5,8 +5,8 @@ lint:
 	npx eslint .
 
 develop:
-	npx webpack serve --open --config webpack.common.js --env mode=dev
+	NODE_ENV=dev npx webpack serve --open --config webpack.common.js
 
 build:
 	rm -rf dist
-	npx webpack --config webpack.common.js --env mode=prod
+	NODE_ENV=production npx webpack --config webpack.common.js
