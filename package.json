@@ -1,5 +1,5 @@
 {
-  "name": "@hexle/code",
+  "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "RSS aggregator",
   "main": "index.js",
