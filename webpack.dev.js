@@ -5,7 +5,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         watchFiles: path.join(__dirname, '*.html'),
-        port: 9000,
+        port: 8080,
         hot: true,
     },
 };
