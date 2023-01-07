@@ -3,6 +3,7 @@ import renderFeeds from './feeds.js';
 import renderRssForm from './rssForm.js';
 import renderTitle from './title.js';
 import renderPosts from './posts.js';
+import renderPreviewPost from './previewPost.js';
 
 const initView = (state, i18n, containers) => {
     renderTitle(state, i18n);
@@ -18,6 +19,9 @@ const initView = (state, i18n, containers) => {
                 break;
             case 'rssForm.state':
                 renderRssForm(state, i18n, containers.rssFormEl);
+                break;
+            case 'uiState.previewPost.postId':
+                renderPreviewPost(state, i18n, containers.previewPostEl);
                 break;
             default:
                 break;

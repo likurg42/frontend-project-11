@@ -4,6 +4,9 @@ const renderFeeds = (state, i18n, container) => {
     const fragment = document.createDocumentFragment();
     const feedsItemTemplate = container.querySelector('#feedsItemTemp');
     const feedsListEl = container.querySelector('.feeds__list');
+    const feedsTitleEl = container.querySelector('.feeds__title');
+
+    feedsTitleEl.textContent = i18n.t('captions.feeds');
 
     state.feeds.forEach((feed) => {
         const feedsItemEl = feedsItemTemplate.content.cloneNode(true);

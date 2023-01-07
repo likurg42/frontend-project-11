@@ -4,12 +4,12 @@ import initView from './view/index.js';
 import validate from './utils/validate.js';
 import getData from './utils/getData.js';
 import parseRSS from './utils/parseRSS.js';
-import updatePosts from './utils/updatePosts.js';
+import startUpdatingPosts from './utils/updatePosts.js';
 
 const app = (container = document) => {
     const i18n = i18next.createInstance();
     i18n.init({
-        lng: 'ru',
+        lng: 'en',
         fallbackLng: 'ru',
         resources,
         debug: true,
@@ -22,16 +22,24 @@ const app = (container = document) => {
             state: 'input',
             errors: [],
         },
+        uiState: {
+            visitedPosts: new Set(),
+            previewPost: {
+                postId: null,
+            },
+        },
     };
 
     const rssFormEl = container.querySelector('.rss-form');
     const postsEl = container.querySelector('.posts');
     const feedsEl = container.querySelector('.feeds');
+    const previewPostEl = container.querySelector('.preview-post');
 
     const watchedState = initView(state, i18n, {
         rssFormEl,
         postsEl,
         feedsEl,
+        previewPostEl,
     });
 
     rssFormEl.addEventListener('submit', (e) => {
@@ -72,7 +80,15 @@ const app = (container = document) => {
     });
 
     const interval = 5000;
-    updatePosts(watchedState, interval);
+    startUpdatingPosts(watchedState, interval);
+
+    postsEl.addEventListener('click', ({ target }) => {
+        if (target.classList.contains('posts-item__btn')) {
+            const { id } = target.dataset;
+            watchedState.uiState.visitedPosts.add(id);
+            watchedState.uiState.previewPost.postId = parseInt(id, 10);
+        }
+    });
 };
 
 export default app;

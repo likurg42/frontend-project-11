@@ -4,6 +4,10 @@ export default {
             title: 'RSS Агрегатор',
             lead: 'Начинайте читать RSS сегодня! Это легко, это красиво.',
             view: 'Просмотр',
+            close: 'Закрыть',
+            readFull: 'Читать полностью',
+            posts: 'Посты',
+            feeds: 'Источники',
         },
         form: {
             rssLink: 'Ссылка RSS',

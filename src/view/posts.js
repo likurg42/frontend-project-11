@@ -4,6 +4,9 @@ const renderPosts = (state, i18n, container) => {
     const fragment = document.createDocumentFragment();
     const postsItemTemplate = container.querySelector('#postsItemTemp');
     const postsListEl = container.querySelector('.posts__list');
+    const postsTitleEl = container.querySelector('.posts__title');
+
+    postsTitleEl.textContent = i18n.t('captions.posts');
 
     state.posts.forEach((feed) => {
         const postsItemEl = postsItemTemplate.content.cloneNode(true);

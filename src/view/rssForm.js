@@ -1,6 +1,13 @@
 const renderRssForm = (state, i18n, container) => {
     const inputEl = container.querySelector('[name="url"]');
-    const feedbackEl = document.querySelector('.feedback');
+    const feedbackEl = container.querySelector('.rss-form__feedback');
+    const labelEl = container.querySelector('.rss-form__label');
+    const exampleEl = container.querySelector('.rss-form__example');
+    const buttonEl = container.querySelector('.rss-form__button');
+
+    labelEl.textContent = i18n.t('form.rssLink');
+    exampleEl.textContent = i18n.t('form.example');
+    buttonEl.textContent = i18n.t('form.add');
 
     switch (state.rssForm.state) {
         case 'invalid':
