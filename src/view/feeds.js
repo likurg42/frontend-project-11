@@ -1,7 +1,8 @@
 const renderFeeds = (state, i18n, container) => {
+    if (!container.classList.contains('feeds--show')) container.classList.add('feeds--show');
+
     const fragment = document.createDocumentFragment();
     const feedsItemTemplate = container.querySelector('#feedsItemTemp');
-    console.log(feedsItemTemplate);
     const feedsListEl = container.querySelector('.feeds__list');
 
     state.feeds.forEach((feed) => {

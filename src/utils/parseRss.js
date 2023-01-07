@@ -1,7 +1,7 @@
-const parser = new window.DOMParser();
+const PARSER = new window.DOMParser();
 
-const checkValidRss = (dom) => {
-    const errorOnParse = parser.parseFromString('<', 'application/xml');
+const checkValidRSS = (dom) => {
+    const errorOnParse = PARSER.parseFromString('<', 'application/xml');
     const parseErrorNS = errorOnParse.getElementsByTagName('parsererror')[0].namespaceURI;
     const parseErrorEls = dom.getElementsByTagNameNS(parseErrorNS, 'parsererror');
     const RSSEls = dom.getElementsByTagName('rss');
@@ -9,14 +9,14 @@ const checkValidRss = (dom) => {
     return RSSEls.length === 1 && parseErrorEls.length === 0;
 };
 
-const parseRss = (rss) => {
-    const dom = parser.parseFromString(rss, 'text/xml');
+const parseRSS = (rss) => {
+    const parsedRSS = PARSER.parseFromString(rss, 'text/xml');
 
-    if (!checkValidRss(dom)) {
+    if (!checkValidRSS(parsedRSS)) {
         throw new Error('invalidRSS');
     }
 
-    const itemEls = dom.querySelectorAll('item');
+    const itemEls = parsedRSS.querySelectorAll('item');
     const posts = [];
 
     itemEls.forEach((item) => {
@@ -31,16 +31,15 @@ const parseRss = (rss) => {
         });
     });
 
-    const title = dom.querySelector('title').textContent;
-    const description = dom.querySelector('description').textContent;
+    const feed = {
+        title: parsedRSS.querySelector('title').textContent,
+        description: parsedRSS.querySelector('description').textContent,
+    };
 
     return {
-        feed: {
-            title,
-            description,
-        },
+        feed,
         posts,
     };
 };
 
-export default parseRss;
+export default parseRSS;

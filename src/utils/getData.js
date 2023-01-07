@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const get = (url) =>
+const getData = (url) =>
     axios.get('https://allorigins.hexlet.app/get', {
         params: {
             url,
         },
     });
 
-export default get;
+export default getData;

@@ -1,4 +1,6 @@
 const renderPosts = (state, i18n, container) => {
+    if (!container.classList.contains('posts--show')) container.classList.add('posts--show');
+
     const fragment = document.createDocumentFragment();
     const postsItemTemplate = container.querySelector('#postsItemTemp');
     const postsListEl = container.querySelector('.posts__list');

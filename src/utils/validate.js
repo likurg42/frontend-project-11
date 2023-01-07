@@ -14,12 +14,8 @@ const validate = (fields, state) => {
             )
             .required(),
     });
-    try {
-        schema.validateSync(fields, { abortEarly: false });
-        return [];
-    } catch (e) {
-        return e.errors;
-    }
+
+    return schema.validate(fields);
 };
 
 export default validate;
