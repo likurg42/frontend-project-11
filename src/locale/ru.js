@@ -18,6 +18,7 @@ export default {
         errors: {
             alreadyExists: 'RSS Уже существует',
             invalidRSS: 'Ресурс не содержит валидный RSS',
+            url: 'Ссылка должна быть валидной',
         },
     },
 };

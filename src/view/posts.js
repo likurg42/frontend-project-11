@@ -8,16 +8,20 @@ const renderPosts = (state, i18n, container) => {
 
     postsTitleEl.textContent = i18n.t('captions.posts');
 
-    state.posts.forEach((feed) => {
+    state.posts.forEach((post) => {
         const postsItemEl = postsItemTemplate.content.cloneNode(true);
         const postsItemLinkEl = postsItemEl.querySelector('.posts-item__link');
-        postsItemLinkEl.textContent = feed.title;
-        postsItemLinkEl.href = feed.link;
-        postsItemLinkEl.dataset.id = feed.id;
+        postsItemLinkEl.textContent = post.title;
+        postsItemLinkEl.href = post.link;
+        postsItemLinkEl.dataset.id = post.id;
 
+        if (state.uiState.visitedPosts.has(post.id)) {
+            postsItemLinkEl.classList.remove('fw-bold');
+            postsItemLinkEl.classList.add('fw-normal', 'link-secondary');
+        }
         const postsItemBtnEl = postsItemEl.querySelector('.posts-item__btn');
         postsItemBtnEl.textContent = i18n.t('captions.view');
-        postsItemBtnEl.dataset.id = feed.id;
+        postsItemBtnEl.dataset.id = post.id;
 
         fragment.appendChild(postsItemEl);
     });

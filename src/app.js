@@ -9,7 +9,7 @@ import startUpdatingPosts from './utils/updatePosts.js';
 const app = (container = document) => {
     const i18n = i18next.createInstance();
     i18n.init({
-        lng: 'en',
+        lng: 'ru',
         fallbackLng: 'ru',
         resources,
         debug: true,
@@ -70,7 +70,8 @@ const app = (container = document) => {
                 watchedState.rssForm.state = 'valid';
             })
             .catch((err) => {
-                watchedState.rssForm.errors.push(err.message);
+                console.log(err.message);
+                watchedState.rssForm.errors.push(err.message.split(' ')[0]);
                 watchedState.rssForm.state = 'invalid';
             })
             .then(() => {
@@ -85,8 +86,13 @@ const app = (container = document) => {
     postsEl.addEventListener('click', ({ target }) => {
         if (target.classList.contains('posts-item__btn')) {
             const { id } = target.dataset;
-            watchedState.uiState.visitedPosts.add(id);
+            watchedState.uiState.visitedPosts.add(parseInt(id, 10));
             watchedState.uiState.previewPost.postId = parseInt(id, 10);
+        }
+
+        if (target.classList.contains('posts-item__link')) {
+            const { id } = target.dataset;
+            watchedState.uiState.visitedPosts.add(parseInt(id, 10));
         }
     });
 };

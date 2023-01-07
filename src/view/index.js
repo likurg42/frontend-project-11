@@ -23,6 +23,9 @@ const initView = (state, i18n, containers) => {
             case 'uiState.previewPost.postId':
                 renderPreviewPost(state, i18n, containers.previewPostEl);
                 break;
+            case 'uiState.visitedPosts':
+                renderPosts(state, i18n, containers.postsEl);
+                break;
             default:
                 break;
         }

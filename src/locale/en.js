@@ -13,6 +13,7 @@ export default {
         errors: {
             alreadyExists: 'RSS Already exists',
             invalidRSS: "Resources doesn't have a valid RSS",
+            url: 'Must be a valid URL',
         },
     },
 };
