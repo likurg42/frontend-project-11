@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     devtool: 'inline-source-map',
-    moudule: {
-        rule: [
+    module: {
+        rules: [
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
@@ -17,7 +17,6 @@ module.exports = {
     },
     devServer: {
         watchFiles: path.join(__dirname, '*.html'),
-        port: 8080,
         hot: true,
     },
 };
