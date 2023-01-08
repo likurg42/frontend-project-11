@@ -17,6 +17,9 @@
     "url": "https://github.com/likurg42/frontend-project-11/issues"
   },
   "homepage": "https://github.com/likurg42/frontend-project-11#readme",
+  "simple-git-hooks": {
+    "pre-commit": "make lint"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/eslint-parser": "^7.15.4",
