@@ -1,12 +1,17 @@
+develop:
+	npx webpack serve
+
 install:
 	npm ci
+
+build:
+	rm -rf dist
+	NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider npx webpack
+
+test:
+	npm test
 
 lint:
 	npx eslint .
 
-develop:
-	npx webpack serve --open --config webpack.common.js --env mode=dev
-
-build:
-	rm -rf dist
-	npx webpack --config webpack.common.js --env mode=prod
+.PHONY: test
