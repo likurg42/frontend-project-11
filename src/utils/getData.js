@@ -4,6 +4,7 @@ const getData = (url) =>
     axios.get('https://allorigins.hexlet.app/get', {
         params: {
             url,
+            'disableCache': true,
         },
     });
 
