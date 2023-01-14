@@ -9,14 +9,18 @@ import startUpdatingPosts from './utils/updatePosts.js';
 
 const app = (container = document) => {
   const i18n = i18next.createInstance();
+  const currLng = window.navigator.language;
+
   i18n
     .init({
-      lng: 'ru',
+      lng: currLng,
       fallbackLng: 'ru',
       resources,
       debug: true,
     })
     .catch((err) => console.error(err));
+
+  document.title = i18n.t('captions.title');
 
   const state = {
     feeds: [],
@@ -65,7 +69,11 @@ const app = (container = document) => {
           feedId,
           id: state.posts.length + i + 1,
         }));
-        const parsedFeed = { ...feed, id: feedId, url: currentData.url };
+        const parsedFeed = {
+          ...feed,
+          id: feedId,
+          url: currentData.url,
+        };
 
         watchedState.feeds = [parsedFeed].concat(watchedState.feeds);
         watchedState.posts = [...parsedPosts, ...watchedState.posts];
