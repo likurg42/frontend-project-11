@@ -2,7 +2,6 @@ import getData from './getData.js';
 import parseRSS from './parseRSS.js';
 
 const updatePosts = (watchedState, interval) => {
-    const mutableWatchedState = watchedState;
     const { feeds, posts } = watchedState;
 
     const promises = feeds.map((feed) => {
@@ -24,7 +23,7 @@ const updatePosts = (watchedState, interval) => {
                     id: watchedState.posts.length + i + 1,
                 }));
 
-                mutableWatchedState.posts = parsedPosts.concat(watchedState.posts);
+                watchedState.posts = parsedPosts.concat(watchedState.posts);
             })
             .catch((err) => {
                 console.error(err);
