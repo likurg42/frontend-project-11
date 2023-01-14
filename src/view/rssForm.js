@@ -14,11 +14,14 @@ const renderRssForm = (state, i18n, container) => {
             inputEl.classList.add('is-invalid');
             inputEl.select();
             feedbackEl.textContent = state.rssForm.errors.map((error) => i18n.t(`errors.${error}`)).join(' ');
+            feedbackEl.classList.add('text-danger');
             break;
         case 'valid':
             inputEl.classList.remove('is-invalid');
             feedbackEl.textContent = '';
             container.reset();
+            feedbackEl.textContent = i18n.t('form.success');
+            feedbackEl.classList.add('text-success');
             break;
         default:
             break;

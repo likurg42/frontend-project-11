@@ -14,11 +14,12 @@ export default {
             example: 'Пример:',
             exampleLink: 'https://ru.hexlet.io/lessons.rss',
             add: 'Добавить',
+            success: 'RSS успешно загружен',
         },
         errors: {
-            alreadyExists: 'RSS Уже существует',
+            alreadyExists: 'RSS уже существует',
             invalidRSS: 'Ресурс не содержит валидный RSS',
-            url: 'Ссылка должна быть валидной',
+            url: 'Ссылка должна быть валидным URL',
         },
     },
 };
