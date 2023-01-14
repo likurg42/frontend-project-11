@@ -10,7 +10,7 @@ const renderPosts = (state, i18n, container) => {
 
     state.posts.forEach((post) => {
         const postsItemEl = postsItemTemplate.content.cloneNode(true);
-        const postsItemLinkEl = postsItemEl.querySelector('.posts-item__link');
+        const postsItemLinkEl = postsItemEl.querySelector('a');
         postsItemLinkEl.textContent = post.title;
         postsItemLinkEl.href = post.link;
         postsItemLinkEl.dataset.id = post.id;
