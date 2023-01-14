@@ -6,30 +6,30 @@ import renderPosts from './posts.js';
 import renderPreviewPost from './previewPost.js';
 
 const initView = (state, i18n, containers) => {
-    renderTitle(state, i18n);
-    renderRssForm(state, i18n, containers.rssFormEl);
+  renderTitle(state, i18n);
+  renderRssForm(state, i18n, containers.rssFormEl);
 
-    return onChange(state, (path) => {
-        switch (path) {
-            case 'posts':
-                renderPosts(state, i18n, containers.postsEl);
-                break;
-            case 'feeds':
-                renderFeeds(state, i18n, containers.feedsEl);
-                break;
-            case 'rssForm.state':
-                renderRssForm(state, i18n, containers.rssFormEl);
-                break;
-            case 'uiState.previewPost.postId':
-                renderPreviewPost(state, i18n, containers.previewPostEl);
-                break;
-            case 'uiState.visitedPosts':
-                renderPosts(state, i18n, containers.postsEl);
-                break;
-            default:
-                break;
-        }
-    });
+  return onChange(state, (path) => {
+    switch (path) {
+      case 'posts':
+        renderPosts(state, i18n, containers.postsEl);
+        break;
+      case 'feeds':
+        renderFeeds(state, i18n, containers.feedsEl);
+        break;
+      case 'rssForm.state':
+        renderRssForm(state, i18n, containers.rssFormEl);
+        break;
+      case 'uiState.previewPost.postId':
+        renderPreviewPost(state, i18n, containers.previewPostEl);
+        break;
+      case 'uiState.visitedPosts':
+        renderPosts(state, i18n, containers.postsEl);
+        break;
+      default:
+        break;
+    }
+  });
 };
 
 export default initView;
