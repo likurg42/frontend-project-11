@@ -3,5 +3,4 @@ import './styles/style.scss';
 import 'bootstrap';
 import app from './app.js';
 
-const container = document.getElementById('app');
-app(container);
+app();

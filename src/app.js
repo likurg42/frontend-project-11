@@ -1,4 +1,5 @@
 import i18next from 'i18next';
+import { v4 as generateID } from 'uuid';
 import resources from './locale/index.js';
 import initView from './view/index.js';
 import validate from './utils/validate.js';
@@ -53,10 +54,10 @@ const app = (container = document) => {
 
         validate(currentData, state)
             .then(() => getData(currentData.url))
-            .then((res) => parseRSS(res.data.contents))
-            .then((data) => {
+            .then((res) => {
+                const data = parseRSS(res.data.contents);
                 const { feed, posts } = data;
-                const feedId = state.feeds.length + 1;
+                const feedId = generateID();
                 const parsedPosts = posts.map((post, i) => ({
                     ...post,
                     feedId,
