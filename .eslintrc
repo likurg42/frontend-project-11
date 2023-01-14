@@ -1,7 +1,6 @@
 {
   "root": true,
   "plugins": [
-    "prettier",
     "import"
   ],
   "env": {
@@ -10,10 +9,7 @@
     "browser": true
   },
   "extends": [
-    "airbnb-base",
-    "plugin:import/recommended",
-    "plugin:prettier/recommended",
-    "prettier"
+    "airbnb-base"
   ],
   "parserOptions": {
     "ecmaVersion": "latest"
