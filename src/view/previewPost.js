@@ -6,7 +6,7 @@ export default function renderPreviewPost(state, i18n, container) {
 
   buttonEl.textContent = i18n.t('captions.close');
   linkEl.textContent = i18n.t('captions.readFull');
-  console.log(state.uiState.previewPost.postId);
+
   const {
     title,
     link,

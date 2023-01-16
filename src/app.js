@@ -67,7 +67,6 @@ const app = (container = document) => {
 
     validate(currentData, feedsUrls)
       .catch((err) => {
-        console.log(err.message);
         watchedState.rssForm.error = err.message;
         watchedState.rssForm.state = 'invalid';
         return Promise.reject(err);
@@ -102,7 +101,6 @@ const app = (container = document) => {
         watchedState.posts = [...parsedPosts, ...watchedState.posts];
       })
       .catch((err) => {
-        console.log(err);
         state.addFeed.error = err.message;
         watchedState.addFeed.state = 'unsuccessful';
       });
@@ -110,7 +108,6 @@ const app = (container = document) => {
 
   rssFormEl.addEventListener('input', (e) => {
     if (e.target === inputEl) {
-      console.log('here in input');
       state.rssForm.errors = [];
       watchedState.rssForm.state = 'input';
     }

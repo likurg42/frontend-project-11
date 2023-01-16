@@ -12,7 +12,6 @@ const renderRssForm = (state, i18n, container) => {
   switch (state.rssForm.state) {
     case 'input': {
       inputEl.classList.remove('is-invalid');
-      feedbackEl.textContent = '';
       break;
     }
     case 'invalid': {
@@ -20,14 +19,16 @@ const renderRssForm = (state, i18n, container) => {
       inputEl.select();
       feedbackEl.textContent = i18n.t(`errors.${state.rssForm.error}`);
       feedbackEl.classList.add('text-danger');
+      feedbackEl.classList.remove('text-success');
       break;
     }
     case 'valid':
       inputEl.classList.remove('is-invalid');
-      feedbackEl.textContent = '';
-      container.reset();
-      feedbackEl.textContent = i18n.t('form.success');
       feedbackEl.classList.add('text-success');
+      feedbackEl.classList.remove('text-danger');
+      feedbackEl.textContent = i18n.t('form.success');
+
+      setTimeout(() => container.reset(), 1500);
       break;
     default:
       break;

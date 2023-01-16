@@ -1,10 +1,10 @@
 const renderFeeds = (state, i18n, container) => {
   const feedbackEl = document.querySelector('.feedback');
-  console.log('here in render');
   switch (state.addFeed.state) {
     case 'unsuccessful': {
       feedbackEl.textContent = i18n.t(`errors.${state.addFeed.error}`);
       feedbackEl.classList.add('text-danger');
+      feedbackEl.classList.remove('text-success');
       break;
     }
     case 'successful': {
@@ -16,9 +16,6 @@ const renderFeeds = (state, i18n, container) => {
       const feedsTitleEl = container.querySelector('.feeds__title');
 
       feedsTitleEl.textContent = i18n.t('captions.feeds');
-
-      feedbackEl.classList.remove('text-danger');
-      feedbackEl.textContent = '';
 
       state.feeds.forEach((feed) => {
         const feedsItemEl = feedsItemTemplate.content.cloneNode(true);
