@@ -14,7 +14,7 @@ const initView = (state, i18n, containers) => {
       case 'posts':
         renderPosts(state, i18n, containers.postsEl);
         break;
-      case 'feeds':
+      case 'addFeed.state':
         renderFeeds(state, i18n, containers.feedsEl);
         break;
       case 'rssForm.state':

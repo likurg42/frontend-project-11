@@ -27,7 +27,11 @@ const app = (container = document) => {
     posts: [],
     rssForm: {
       state: 'input',
-      errors: [],
+      error: null,
+    },
+    addFeed: {
+      state: 'waiting',
+      error: null,
     },
     uiState: {
       visitedPosts: new Set(),
@@ -38,6 +42,7 @@ const app = (container = document) => {
   };
 
   const rssFormEl = container.querySelector('.rss-form');
+  const inputEl = container.querySelector('[aria-label="url"]');
   const postsEl = container.querySelector('.posts');
   const feedsEl = container.querySelector('.feeds');
   const previewPostEl = container.querySelector('.preview-post');
@@ -58,54 +63,74 @@ const app = (container = document) => {
       currentData[key] = value;
     });
 
-    validate(currentData, state)
-      .then(() => getData(currentData.url))
+    const feedsUrls = state.feeds.map((feed) => feed.url);
+
+    validate(currentData, feedsUrls)
+      .catch((err) => {
+        console.log(err.message);
+        watchedState.rssForm.error = err.message;
+        watchedState.rssForm.state = 'invalid';
+        return Promise.reject(err);
+      })
+      .then(() => {
+        watchedState.rssForm.error = null;
+        watchedState.addFeed.state = 'started';
+        return getData(currentData.url);
+      })
       .then((res) => {
         const data = parseRSS(res.data.contents);
         const { feed, posts } = data;
         const feedId = generateID();
-        const parsedPosts = posts.map((post, i) => ({
+
+        const parsedPosts = posts.map((post) => ({
           ...post,
           feedId,
-          id: state.posts.length + i + 1,
+          id: generateID(),
         }));
+
         const parsedFeed = {
           ...feed,
           id: feedId,
           url: currentData.url,
         };
 
-        watchedState.feeds = [parsedFeed].concat(watchedState.feeds);
-        watchedState.posts = [...parsedPosts, ...watchedState.posts];
-        watchedState.rssForm.errors = [];
+        state.feeds = [parsedFeed].concat(watchedState.feeds);
+        state.addFeed.error = null;
+
         watchedState.rssForm.state = 'valid';
+        watchedState.addFeed.state = 'successful';
+        watchedState.posts = [...parsedPosts, ...watchedState.posts];
       })
       .catch((err) => {
-        console.log(err.message);
-        watchedState.rssForm.errors.push(err.message.split(' ')[0]);
-        watchedState.rssForm.state = 'invalid';
-      })
-      .then(() => {
-        watchedState.rssForm.errors = [];
-        watchedState.rssForm.state = 'input';
+        console.log(err);
+        state.addFeed.error = err.message;
+        watchedState.addFeed.state = 'unsuccessful';
       });
   });
 
-  const interval = 5000;
-  startUpdatingPosts(watchedState, interval);
+  rssFormEl.addEventListener('input', (e) => {
+    if (e.target === inputEl) {
+      console.log('here in input');
+      state.rssForm.errors = [];
+      watchedState.rssForm.state = 'input';
+    }
+  });
 
   postsEl.addEventListener('click', ({ target }) => {
     if (target.classList.contains('posts-item__btn')) {
       const { id } = target.dataset;
-      watchedState.uiState.visitedPosts.add(parseInt(id, 10));
-      watchedState.uiState.previewPost.postId = parseInt(id, 10);
+      watchedState.uiState.visitedPosts.add(id);
+      watchedState.uiState.previewPost.postId = id;
     }
 
     if (target.classList.contains('posts-item__link')) {
       const { id } = target.dataset;
-      watchedState.uiState.visitedPosts.add(parseInt(id, 10));
+      watchedState.uiState.visitedPosts.add(id);
     }
   });
+
+  const interval = 5000;
+  startUpdatingPosts(watchedState, interval);
 };
 
 export default app;

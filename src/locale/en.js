@@ -19,8 +19,8 @@ export default {
     errors: {
       alreadyExists: 'RSS already exists',
       invalidRSS: "Resources doesn't have a valid RSS",
-      url: 'Must be a valid URL',
-      Network: 'Network error',
+      'url must be a valid URL': 'Must be a valid URL',
+      'Network Error': 'Network error',
     },
   },
 };

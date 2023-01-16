@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
-const validate = (fields, state) => {
-  const feedsUrls = state.feeds.map((feed) => feed.url);
+const validate = (fields, feedsUrls) => {
   const schema = yup.object().shape({
     url: yup
       .string()
