@@ -27,8 +27,7 @@ const renderRssForm = (state, i18n, container) => {
       feedbackEl.classList.add('text-success');
       feedbackEl.classList.remove('text-danger');
       feedbackEl.textContent = i18n.t('form.success');
-
-      setTimeout(() => container.reset(), 1500);
+      container.reset();
       break;
     default:
       break;
