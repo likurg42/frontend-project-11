@@ -1,6 +1,5 @@
-const PARSER = new window.DOMParser();
-
 const checkValidRSS = (dom) => {
+  const PARSER = new window.DOMParser();
   const errorOnParse = PARSER.parseFromString('<', 'application/xml');
   const parseErrorNS = errorOnParse.getElementsByTagName('parsererror')[0].namespaceURI;
   const parseErrorEls = dom.getElementsByTagNameNS(parseErrorNS, 'parsererror');
@@ -10,6 +9,7 @@ const checkValidRSS = (dom) => {
 };
 
 const parseRSS = (rss) => {
+  const PARSER = new window.DOMParser();
   const parsedRSS = PARSER.parseFromString(rss, 'text/xml');
 
   if (!checkValidRSS(parsedRSS)) {
